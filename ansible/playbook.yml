@@ -90,11 +90,14 @@
     - name: write Hadoop HDFS config file
       template: src=templates/hadoop-hdfs-site.xml.j2 dest='{{ hadoop_home_dir }}/conf/hdfs-site.xml'
 
+    - name: write Hadoop M/R config file
+      template: src=templates/hadoop-mapred-site.xml.j2 dest='{{ hadoop_home_dir }}/conf/mapred-site.xml'
+
     - name: format the Hadoop filesystem
       command: creates='{{ hadoop_tmp_dir }}' '{{ hadoop_home_dir }}/bin/hadoop' namenode -format
 
-    - name: start Hadoop DFS daemons
-      command: '{{ hadoop_home_dir }}/bin/start-dfs.sh'
+    - name: start Hadoop daemons
+      command: '{{ hadoop_home_dir }}/bin/start-all.sh'
 
     ### HBase
 
